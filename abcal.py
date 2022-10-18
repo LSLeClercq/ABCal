@@ -60,6 +60,12 @@ def AuthorBias():
     for x in Author_list_Unique:
         occurrence = Cleaned_Authors.count(x)
         AuthorDF = AuthorDF.append({'Author': x, 'Pubs':occurrence}, ignore_index=True)
+    output_name = input("File name (.csv) for Author counts: ")
+    if output_name.endswith('.csv') is True:
+        pass
+    elif output_name.endswith('.csv') is False:
+        output_name = output_name + '.csv'
+    AuthorDF.to_csv(output_name, index=False)
     Sum = AuthorDF['Pubs'].sum()
     Normlist = []
     for x in AuthorDF['Author']:
@@ -116,7 +122,7 @@ def check_norm():
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv' 
     Data = pd.read_csv(infile)
-    Bias = Data['Bias.Norm']
+    Bias = Data['Norm.Bias']
     Normality = shapiro(Bias)
     Statistic = Normality.statistic
     PValue = Normality.pvalue
