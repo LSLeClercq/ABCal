@@ -57,6 +57,7 @@ e.g.
   |Paper 2|Author E|Author B|Author D|NaN|
   |Paper 3|Author B|Author F|Author C|Author D|
   
+- Asks for output file name for number of publications per author e.g. ***Author_Pubs.csv*** (useful for checking duplicates)
 - Asks for output file name e.g. ***Auth_Bias.csv***
 - Replaces authors with the proportions of the literature contributed by each author and writes a new column 'Bias' that refects the sum of proportions
   
