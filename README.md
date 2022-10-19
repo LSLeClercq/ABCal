@@ -15,7 +15,7 @@ ABCal is a menu-driven module used to calculate and quantify potential author bi
 
 After downloading and extracting the zip archive ABCal can be implemented in by navigating to the directory and using one of two methods:
 ```
-python ABCal.py
+python abcal.py
 ```
 or
 ```
@@ -24,7 +24,7 @@ python -m abcal
 ```
 -> This option will install the relevant dependencies automatically
 
-A pre-compiled stand-alone Windows executable is also available.
+A pre-compiled stand-alone Windows executable is also available. [![DOI](https://img.shields.io/badge/doi-10.5281/zenodo.7224845-orange)](https://doi.org/10.5281/zenodo.7224845)
 
 ### Main menu
 The following options are available through the main menu:
