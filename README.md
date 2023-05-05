@@ -1,7 +1,7 @@
 ![imgbin_scholarship-baresan-university-computer-icons-school-png_2_10](https://user-images.githubusercontent.com/85708751/196565804-57d05bd6-94ee-46ff-a910-879243040207.png) ![image](https://user-images.githubusercontent.com/85708751/196566604-f39ec73a-5074-475f-b763-56bc404a002a.png) <img align="right" src="https://user-images.githubusercontent.com/85708751/176286890-15060001-79ba-4035-a815-e8cf821cec86.png"> 
   
 ## Author Bias Computation
-![Language](https://img.shields.io/badge/Language-Python-yellow)  ![Version](https://img.shields.io/badge/Version-1.0.1-purple) ![Windows](https://img.shields.io/badge/OS-Windows-green) ![License](https://img.shields.io/badge/License-Apache_2.0-red) 
+![Language](https://img.shields.io/badge/Language-Python-yellow)  ![Version](https://img.shields.io/badge/Version-1.0.2-purple) ![Windows](https://img.shields.io/badge/OS-Windows-green) ![License](https://img.shields.io/badge/License-Apache_2.0-red) 
 ### Introduction
 ABCal is a menu-driven module used to calculate and quantify potential author bias in studies included in a review or meta-analysis. The menu guides you through the steps of creating a list of authors from a table of authors for each paper (see Examples) to calculating the number of total articles each author contributed to. The overall author contributions are then summed to determine the level of potential bias in the literature through an over-representation of specific authors.
 
@@ -10,6 +10,11 @@ ABCal is a menu-driven module used to calculate and quantify potential author bi
 - Numpy >= 1.20.1
 - Pandas >= 1.2.4
 - SciPy >= 1.6.2
+- Geopy >= 2.3.0
+- MatPlotLib >= 3.3.4
+- Statsmodels >= 0.12.2
+- Folium >= 0.14.0
+- Pycountry-convert >= 0.7.2
 
 **Installation:**
 
@@ -33,13 +38,14 @@ MAIN MENU:
 ----------------------------------------
 Choose one of the following options?
    a) Calculate Author bias
-   b) Normalise Author bias
+   b) Calibrate Author bias
    c) Check normality of Author bias distribution
    d) Get upper/lower quartiles of Author bias
+   e) Create plots
    q) Quit
 ----------------------------------------
 ```
-input is given as lower case 'a', 'b', 'c', 'd', or 'q'
+input is given as lower case 'a', 'b', 'c', 'd', 'e', or 'q'
 e.g.
 ```
 Choice: a
@@ -60,12 +66,26 @@ e.g.
 - Asks for output file name e.g. ***Auth_Bias.csv***
 - Replaces authors with the proportions of the literature contributed by each author and writes a new column 'Bias' that refects the sum of proportions
   
-#### b) Normalise Author bias (STEP 2)
+#### b) Calibrate Author bias (STEP 2)
 - Takes output from STEP 1 as input file and asks for the new output file name e.g. ***Auth_BiasNorm.csv***
 - Writes a new column 'Bias.Norm' that reflects the paper author bias (sum) divided by the number of authors on the paper
 
 #### c) Check normality of Author bias distribution (STEP 3)
-- Takes output from STEP 2 as input file and writes a new file 'Normality.txt' that contains estimates on if the author bias follows a normal distribution (typically it is not normally distributed in most cases)
+- Takes output from STEP 2 as input file and checks normality in one of 3 ways based on menu choice.
+```
+NORMALITY MENU:
+----------------------------------------
+Choose one of the following options?
+   a) Shapiro-Wilk
+   b) QQ Plot
+   c) Histogram
+   q) Quit
+----------------------------------------
+```
+
+##### Option a) Shapiro-Wilk:
+
+- Tests for normality using the Shapiro-Wilk test and writes a new file 'Normality.txt' that contains estimates on if the author bias follows a normal distribution (typically it is not normally distributed in most cases)
 ```
 Test of Normality:
 --------------------
@@ -74,6 +94,16 @@ P-value: 7.557426579296589e-05 ***
 Result: Not Normal
 ```
 (* p-value<0.05, ** p-value<0.02, *** p-value<0.01)
+
+##### Option b) QQ Plot:
+
+- Plots the theoretical quantile distributions to the sample quantile distribution.
+
+- If blue values fall on red line they follow a normal distribution, if blue values fall on a horizontal line they are evenly distributed.
+
+##### Option c) Histogram:
+
+- Plots the bias estimates by count as a histogram to verify clustering or a possible bell shaped distribution (normal distribution).
 
 #### d) Get upper/lower quartiles of Author bias (STEP 4)
 - Takes output from STEP 2 as input file and writes a new file 'Quantiles.txt' that contains the lower 3rd, middle, and upper 3rd of the normalised bias values
@@ -96,3 +126,32 @@ Medium:  0.0081 to 0.0425
 High:    0.0425 to 0.0521
 ```
 - Asks for name of output file e.g. ***Auth_final.csv*** with an added column that indicates the 'Level' of a paricular paper as 'Low' for the lower 3rd, 'Medium' for the middle, and 'High' for the upper 3rd
+
+#### e) Create plots
+
+- Brings up the plots menu for scientometric analyses and visualisation of attributes of included studies.
+
+```
+PLOTS MENU:
+----------------------------------------
+Choose one of the following options?
+   a) Plot by Year
+   b) Plot by Authors
+   c) Plot by Location
+   q) Quit
+----------------------------------------
+```
+
+##### a) Plot by Year:
+
+- Takes a table/csv as input with a column for the study name (Paper) and a column for the publication time (Year).
+- Generates a histogram with the number of publications per year.
+
+##### b) Plot by Authors:
+
+- Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
+
+##### c) Plot by Location:
+
+- Takes a table/csv as input with a column for the study name (Paper) and a column for the study site (Location).
+- Generates a map with the number of publications per continent indicated as circle markers.
