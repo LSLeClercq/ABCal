@@ -15,11 +15,11 @@ setuptools.setup(
     url="https://github.com/LSLeClercq/ABCal",
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License :: OSI Approved :: Apache License",
         "Operating System :: Microsoft :: Windows :: Windows 10",
     ],
     packages=find_packages(),
     install_requires=[
-        'pandas', 'numpy', 'math', 'scipy.stats'],
+        'pandas', 'numpy', 'math', 'scipy.stats', 'matplotlib', 'statsmodels.api', 'io', 'folium', 'geopy', 'pycountry_convert'],
     python_requires=">=3.6",
 )
