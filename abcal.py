@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import io
 import folium
+import scipy.stats as stats
 from pycountry_convert import country_alpha2_to_continent_code, country_name_to_country_alpha2
 from geopy.geocoders import Nominatim
 from scipy.stats import shapiro
@@ -82,18 +83,31 @@ def author_bias():
         Normlist = list(PubsNorm)
     AuthorDF['Pubs.Norm'] = Normlist
     length_2 = len(AuthorDF.index)
+    Names = []
+    Values = []
     for i in range(0, length_2):
         old_value = AuthorDF.iloc[i]['Author']
+        Names.append(old_value)
         new_value = AuthorDF.iloc[i]['Pubs.Norm']
+        Values.append(new_value)
         Authors.replace(to_replace=old_value, value=new_value, inplace=True)
+    Individual_bias = pd.DataFrame(list(zip(Names, Values)),
+                                           columns = ['Author', 'Ind.Bias']) 
+    output_name_2 = input("File name (.csv) for calculated values (Individual): ")
+    if output_name_2.endswith('.csv') is True:
+        pass
+    elif output_name_2.endswith('.csv') is False:
+        output_name_2 = output_name_2 + '.csv'
+    Individual_bias.to_csv(output_name_2, index=False)
     Bias = Authors.sum(axis=1)
     Authors['Bias'] = Bias
-    output_name = input("File name (.csv) for calculated values: ")
-    if output_name.endswith('.csv') is True:
+    Authors_Out = pd.DataFrame(Authors, columns=['Paper', 'Bias'])
+    output_name_3 = input("File name (.csv) for calculated values (Paper): ")
+    if output_name_3.endswith('.csv') is True:
         pass
-    elif output_name.endswith('.csv') is False:
-        output_name = output_name + '.csv'
-    Authors.to_csv(output_name, index=False)
+    elif output_name_3.endswith('.csv') is False:
+        output_name_3 = output_name_3 + '.csv'
+    Authors_Out.to_csv(output_name_3, index=False)
     print()
     print()
 
@@ -246,7 +260,7 @@ def get_quantiles():
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
     Data = pd.read_csv(infile)
-    Bias = Data['Norm.Bias']
+    Bias = Data['Cal.Bias']
     Quantiles = np.quantile(Bias, [0,0.33,0.5,0.66,1])
     Upper = Quantiles[3]
     Lower = Quantiles[1]
@@ -303,11 +317,12 @@ def plots_menu():
     print("   a) Plot by Year")
     print("   b) Plot by Authors")
     print("   c) Plot by Location")
+    print("   d) Plot z-values of Calibrated Bias")
     print("   q) Quit")
     print("----------------------------------------")
     choice = input("Choice: ")
     print()
-    if choice.lower() in ['a','b','c','q']:
+    if choice.lower() in ['a','b','c','d','q']:
         return choice.lower()
     else:
         print(choice +"?")
@@ -324,6 +339,8 @@ def plots():
         author_plot()
     if choice == 'c':
         location_plot()
+    if choice == 'd':
+        bias_plot()
 
 def year_plot():
     '''plots publications by year'''
@@ -339,8 +356,8 @@ def year_plot():
               columns=['Paper','Year'])
     df3 = df2.groupby(['Year']).size()
     YearsData = list(set(Years))
-    sorted(YearsData)
-    fig, ax = plt.subplots(figsize =(10, 7))
+    YearsData = sorted(YearsData)
+    fig, ax = plt.subplots(figsize =(16, 10))
     plt.rcParams['axes.facecolor'] = '#f2f2f5'
     font = {'family': 'serif',
         'color':  'black',
@@ -350,7 +367,7 @@ def year_plot():
     ax.set_title("Publications by year", fontdict=font, fontsize=20, pad=15)
     ax.set_xlabel("Year", fontdict=font, fontsize=15, labelpad=10)
     ax.set_ylabel("Publications", fontdict=font, fontsize=15, labelpad=10)
-    ax.bar(YearsData, df3)
+    ax.bar(YearsData,df3)
     plt.savefig("Year Plot.png")
     plt.show()
     print()
@@ -460,6 +477,30 @@ def location_plot():
     print()
     print('Done!')
     print()
+
+def bias_plot():
+    '''Plot of bias measure computed for authors'''
+    infile = input("Computed bias file (.csv): ")
+    if infile.endswith('.csv') is True:
+        pass
+    elif infile.endswith('.csv') is False:
+        infile = infile + '.csv'
+    Data = pd.read_csv(infile)
+    Data = pd.DataFrame(Data)
+    Bias = Data['Cal.Bias']
+    ZBias = stats.zscore(Bias)
+    fig, ax = plt.subplots(figsize =(10, 7))
+    font = {'family': 'serif',
+        'color':  'black',
+        'weight': 'normal',
+        }
+    ax.boxplot(ZBias, patch_artist = True,
+                notch ='True')
+    ax.set_facecolor('#f2f2f5')
+    ax.set_title("Publications bias", fontdict=font, fontsize=20, pad=15)
+    ax.set_xlabel("Bias", fontdict=font, fontsize=15, labelpad=10)
+    ax.set_ylabel("Z-values", fontdict=font, fontsize=15, labelpad=10)
+    plt.savefig("Bias plot.png")
 
 def main_loop():
     """The main loop of the script"""
