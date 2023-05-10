@@ -422,62 +422,32 @@ def location_plot():
     df5 = pd.Series.to_frame(df5)
     df5 = df5.reset_index()
     df5.columns = ['Location', 'Publications']
-    LocationData = list(set(Location))
-    sorted(LocationData)
-    country = []
-    continent = []
-    for i in range(0,len(df5)):
-        try:
-            cn_a2_code = [country_name_to_country_alpha2(df5.iloc[i]['Location'])]
-            country = country + cn_a2_code
-        except:
-            cn_a2_code = ['Unknown']
-            country = country + cn_a2_code
-        try:
-            cn_continent = [country_alpha2_to_continent_code(cn_a2_code[0])]
-            continent = continent + cn_continent
-        except:
-            cn_continent = ['Unknown']
-            continent = continent + cn_continent
-    df5['Country'] = country
-    df5['Continent'] = continent
-    geolocator = Nominatim(user_agent="ABCalv1.0.2")
-    df5['Lat'] = ''
-    df5['Lon'] = ''
-    for i in range(0,len(df5)):
-        try:
-            # Geolocate the center of the country
-            loc = geolocator.geocode(df5.iloc[i]['Country'])
-            lat = loc.latitude
-            df5.loc[i,'Lat'] = lat
-            lon = loc.longitude
-            df5.loc[i,'Lon'] = lon
-        except:
-            # Return missing value
-            df5.iloc[i,'Lat'] = np.nan
-            df5.iloc[i,'Lon'] = np.nan
-    world_map = folium.Map(tiles="cartodbpositron", width = 700, height = 450,
-                           control_scale=True, zoom_start=18)
-    marker_cluster = MarkerCluster().add_to(world_map)
-    for i in range(len(df5)):
-        lat = df5.iloc[i]['Lat']
-        long = df5.iloc[i]['Lon']
-        radius=5
-        popup_text = """Country : {}<br>
-                    Publications : {}<br>"""
-        popup_text = popup_text.format(df5.iloc[i]['Country'],
-                                   df5.iloc[i]['Publications']
-                                   )
-        folium.CircleMarker(location = [lat, long], radius=radius, 
-                            popup= popup_text, fill =True).add_to(marker_cluster)
-    world_map
+    End = max(df5['Publications']) + 1
+    political_countries_url = (
+        "http://geojson.xyz/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"
+        )
+    world_map = folium.Map(location=(30, 10), tiles="cartodbpositron",
+                           control_scale=True, zoom_start=2)
+    folium.Choropleth(
+    geo_data=political_countries_url,
+    data=df5,
+    columns=["Location", "Publications"],
+    key_on="feature.properties.name",
+    fill_color="RdYlGn_r",
+    fill_opacity=0.8,
+    line_opacity=0.3,
+    nan_fill_color="white",
+    legend_name="Publications by Country",
+    bins=list(range(0,End,1))
+    ).add_to(world_map)
+    world_map.save("Locations plot.html")
     img_data = world_map._to_png(5)
     img = Image.open(io.BytesIO(img_data))
-    img.save('Location plot.png', dpi=(300,300))
+    img.save('Location plot.png', dpi=(600,600))
     print()
     print('Done!')
     print()
-
+    
 def bias_plot():
     '''Plot of bias measure computed for authors'''
     infile = input("Computed bias file (.csv): ")
