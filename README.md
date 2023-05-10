@@ -14,7 +14,6 @@ ABCal is a menu-driven module used to calculate and quantify potential author bi
 - MatPlotLib >= 3.3.4
 - Statsmodels >= 0.12.2
 - Folium >= 0.14.0
-- Pycountry-convert >= 0.7.2
 
 **Installation:**
 
@@ -101,6 +100,7 @@ Result: Not Normal
 
 - If blue values fall on red line they follow a normal distribution, if blue values fall on a horizontal line they are evenly distributed.
 
+
 ##### Option c) Histogram:
 
 - Plots the bias estimates by count as a histogram to verify clustering or a possible bell shaped distribution (normal distribution).
@@ -138,6 +138,7 @@ Choose one of the following options?
    a) Plot by Year
    b) Plot by Authors
    c) Plot by Location
+   d) Plot z-values of Calibrated Bias
    q) Quit
 ----------------------------------------
 ```
@@ -146,12 +147,28 @@ Choose one of the following options?
 
 - Takes a table/csv as input with a column for the study name (Paper) and a column for the publication time (Year).
 - Generates a histogram with the number of publications per year.
+e.g.
+![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/04b364fb-9413-493f-9768-dee2fa9a634a)
 
 ##### b) Plot by Authors:
 
 - Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
+e.g.
+![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/559f05e1-e599-4ef2-9d4f-c017e03665b9)
+
 
 ##### c) Plot by Location:
 
 - Takes a table/csv as input with a column for the study name (Paper) and a column for the study site (Location).
-- Generates a map with the number of publications per continent indicated as circle markers.
+- Generates a chloropleth map with the number of publications per country indicated.
+e.g.
+![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/73f65ea3-0b1c-4646-a5b8-9e13f7b22a62)
+
+##### d) Plot z-values of Calibrated Bias:
+
+- Takes output from calibration step (b) as input.
+- Generates a boxplot of the z-score normalised bias estimates for the included publications.
+e.g.
+![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/a841c45c-2f16-4f88-8a7e-59eefd86d65f)
+
+
