@@ -1,6 +1,6 @@
 ![imgbin_scholarship-baresan-university-computer-icons-school-png_2_10](https://user-images.githubusercontent.com/85708751/196565804-57d05bd6-94ee-46ff-a910-879243040207.png) ![image](https://user-images.githubusercontent.com/85708751/196566604-f39ec73a-5074-475f-b763-56bc404a002a.png) <img align="right" src="https://user-images.githubusercontent.com/85708751/176286890-15060001-79ba-4035-a815-e8cf821cec86.png"> 
   
-## Author Bias Computation
+## Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses
 ![Language](https://img.shields.io/badge/Language-Python-yellow)  ![Version](https://img.shields.io/badge/Version-1.0.2-purple) ![Windows](https://img.shields.io/badge/OS-Windows-green) ![License](https://img.shields.io/badge/License-Apache_2.0-red) 
 ### Introduction
 ABCal is a menu-driven module used to calculate and quantify potential author bias in studies included in a review or meta-analysis. The menu guides you through the steps of creating a list of authors from a table of authors for each paper (see Examples) to calculating the number of total articles each author contributed to. The overall author contributions are then summed to determine the level of potential bias in the literature through an over-representation of specific authors. With the latest update some functionality has been added for plotting various aspects relevant to the scientometrics appraisal of included literature for reviews or meta-analyses, specifically the ability to visualise publications by year and location as well as the top contributing authors.
@@ -105,6 +105,9 @@ Result: Not Normal
 
 - Plots the bias estimates by count as a histogram to verify clustering or a possible bell shaped distribution (normal distribution).
 
+e.g.
+![Histogram of bias values](https://github.com/LSLeClercq/ABCal/assets/85708751/883a5e07-0b2a-427d-8d2b-190a0e6d3980)
+
 #### d) Get upper/lower quartiles of Author bias (STEP 4)
 - Takes output from STEP 2 as input file and writes a new file 'Quantiles.txt' that contains the lower 3rd, middle, and upper 3rd of the normalised bias values
 ```
@@ -147,28 +150,34 @@ Choose one of the following options?
 
 - Takes a table/csv as input with a column for the study name (Paper) and a column for the publication time (Year).
 - Generates a histogram with the number of publications per year.
+
 e.g.
-![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/04b364fb-9413-493f-9768-dee2fa9a634a)
+![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/fb0700c5-c35a-4139-b932-38b90c9fa3b7)
+
 
 ##### b) Plot by Authors:
 
 - Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
-e.g.
-![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/559f05e1-e599-4ef2-9d4f-c017e03665b9)
 
+e.g.
+![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/280969ac-8edf-484f-b068-e4ab06be5b5c)
 
 ##### c) Plot by Location:
 
 - Takes a table/csv as input with a column for the study name (Paper) and a column for the study site (Location).
 - Generates a chloropleth map with the number of publications per country indicated.
+
 e.g.
-![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/73f65ea3-0b1c-4646-a5b8-9e13f7b22a62)
+![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/f2d4784c-0bde-489d-912b-e921248a7fb5)
 
 ##### d) Plot z-values of Calibrated Bias:
 
 - Takes output from calibration step (b) as input.
 - Generates a boxplot of the z-score normalised bias estimates for the included publications.
+
 e.g.
-![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/a841c45c-2f16-4f88-8a7e-59eefd86d65f)
+
+![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/e3478a9c-4a0c-417c-b830-8b603e80ae32)
+
 
 
