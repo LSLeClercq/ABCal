@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="abcal",
-    version="1.0.1",
+    version="1.0.2",
     author="Louis-Stephane Le Clercq",
     author_email="leclercq.l.s@gmail.com",
     description="Author Bias Calculation",
@@ -20,6 +20,6 @@ setuptools.setup(
     ],
     packages=find_packages(),
     install_requires=[
-        'pandas', 'numpy', 'math', 'scipy.stats', 'matplotlib', 'statsmodels.api', 'io', 'folium', 'geopy', 'pycountry_convert'],
+        'pandas', 'numpy', 'math', 'scipy.stats', 'matplotlib', 'statsmodels.api', 'io', 'folium'],
     python_requires=">=3.6",
 )

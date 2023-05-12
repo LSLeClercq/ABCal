@@ -7,14 +7,12 @@ Created on Wed Oct 12 22:37:23 2022
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 import statsmodels.api as sm
 import io
 import folium
 import scipy.stats as stats
-from pycountry_convert import country_alpha2_to_continent_code, country_name_to_country_alpha2
-from geopy.geocoders import Nominatim
 from scipy.stats import shapiro
-from folium.plugins import MarkerCluster
 from PIL import Image
 
 print('ABC: Author Bias Computation (1.0.2)')
@@ -53,6 +51,14 @@ def author_bias():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file " + infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Authors = pd.read_csv(infile)
     length = len(Authors)
     Author_list = list(Authors.iloc[0,1:length])
@@ -118,6 +124,14 @@ def calibrate():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file " + infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Authors = pd.read_csv(infile)
     length = len(Authors) + 1
     for i in range(1,len(Authors.index)):
@@ -168,12 +182,20 @@ def normality():
         check_norm_histo()
 
 def check_norm_shapiro():
-    '''Verify normal distribution by SW'''
+    '''Verify normal distribution by Shapiro-Wilk'''
     infile = input("Authors with computed bias file (.csv): ")
     if infile.endswith('.csv') is True:
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file " + infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Data = pd.read_csv(infile)
     Bias = Data['Cal.Bias']
     Normality = shapiro(Bias)
@@ -206,6 +228,14 @@ def check_norm_QQ():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file " + infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Data = pd.read_csv(infile)
     Bias = Data['Cal.Bias']
     Bias = Bias.to_frame()
@@ -231,6 +261,14 @@ def check_norm_histo():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Data = pd.read_csv(infile)
     Bias = Data['Cal.Bias']
     Bias = Bias.to_frame()
@@ -246,7 +284,7 @@ def check_norm_histo():
     ax.set_title("Histogram of distribution for bias values", fontdict=font, fontsize=20, pad=15)
     ax.set_xlabel("Bias value", fontdict=font, fontsize=15, labelpad=10)
     ax.set_ylabel("Count", fontdict=font, fontsize=15, labelpad=10)
-    ax.hist(Values)
+    ax.hist(Values, color='#bc5090')
     plt.savefig("Histogram of bias values.png")
     print()
     print('Done!')
@@ -259,12 +297,19 @@ def get_quantiles():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Data = pd.read_csv(infile)
     Bias = Data['Cal.Bias']
     Quantiles = np.quantile(Bias, [0,0.33,0.5,0.66,1])
     Upper = Quantiles[3]
     Lower = Quantiles[1]
-    #print('The quantiles are:', Quantiles)
     file = open('Quantiles.txt','w')
     file.write('The Quatiles are:\n')
     file.write('--------------------\n')
@@ -349,6 +394,14 @@ def year_plot():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Authors = pd.read_csv(infile)
     Years = Authors['Year']
     Papers = Authors['Paper']
@@ -358,6 +411,8 @@ def year_plot():
     YearsData = list(set(Years))
     YearsData = sorted(YearsData)
     fig, ax = plt.subplots(figsize =(16, 10))
+    tick_spacing = 1
+    ax.xaxis.set_major_locator(ticker.MultipleLocator(tick_spacing))
     plt.rcParams['axes.facecolor'] = '#f2f2f5'
     font = {'family': 'serif',
         'color':  'black',
@@ -367,7 +422,7 @@ def year_plot():
     ax.set_title("Publications by year", fontdict=font, fontsize=20, pad=15)
     ax.set_xlabel("Year", fontdict=font, fontsize=15, labelpad=10)
     ax.set_ylabel("Publications", fontdict=font, fontsize=15, labelpad=10)
-    ax.bar(YearsData,df3)
+    ax.bar(YearsData,df3, color='#003f5c')
     plt.savefig("Year Plot.png")
     plt.show()
     print()
@@ -381,6 +436,14 @@ def author_plot():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Authors = pd.read_csv(infile)
     Number = int(input("Number of Authors:  "))
     df4 = Authors[['Author','Pubs']].nlargest(n=Number, columns='Pubs')
@@ -391,7 +454,7 @@ def author_plot():
         'color':  'black',
         'weight': 'normal',
         }
-    colors = ["#e00202", "#de8602", "#49b849", "#4804cc", "#764fc2"]
+    colors = ['#003f5c','#58508d','#bc5090','#ff6361','#ffa600']
     ax.barh(TopAuthors, Pubs, color=colors)
     ax.set_facecolor('#f2f2f5')
     ax.set_title("Publications by author", fontdict=font, fontsize=20, pad=15)
@@ -399,7 +462,6 @@ def author_plot():
     ax.set_ylabel("Authors", fontdict=font, fontsize=15, labelpad=10)
     for s in ['top', 'bottom', 'left', 'right']:
         ax.spines[s].set_visible(False)
-    ax.grid(b = True, color ='white', linestyle ='-.', linewidth = 0.5, alpha = 0.2)
     plt.savefig("Author Plot.png")
     plt.show()
     print()
@@ -413,6 +475,14 @@ def location_plot():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Locations = pd.read_csv(infile)
     Location = Locations['Location']
     Papers = Locations['Paper']
@@ -455,6 +525,14 @@ def bias_plot():
         pass
     elif infile.endswith('.csv') is False:
         infile = infile + '.csv'
+    try:
+        pd.read_csv(infile)
+    except FileNotFoundError:
+        msg = "Sorry, the file "+ infile + " does not exist."
+        print()
+        print(msg)
+        print()
+        return
     Data = pd.read_csv(infile)
     Data = pd.DataFrame(Data)
     Bias = Data['Cal.Bias']
@@ -464,8 +542,12 @@ def bias_plot():
         'color':  'black',
         'weight': 'normal',
         }
-    ax.boxplot(ZBias, patch_artist = True,
+    bplot1 = ax.boxplot(ZBias, patch_artist = True,
                 notch ='True')
+    colorbar = ['#58508d']
+    for bplot in (bplot1):
+        for patch, color in zip(bplot1['boxes'], colorbar):
+            patch.set_facecolor(color)
     ax.set_facecolor('#f2f2f5')
     ax.set_title("Publications bias", fontdict=font, fontsize=20, pad=15)
     ax.set_xlabel("Bias", fontdict=font, fontsize=15, labelpad=10)
