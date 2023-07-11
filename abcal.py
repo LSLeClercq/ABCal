@@ -107,7 +107,7 @@ def author_bias():
     Individual_bias.to_csv(output_name_2, index=False)
     Bias = Authors.sum(axis=1)
     Authors['Bias'] = Bias
-    Authors_Out = pd.DataFrame(Authors, columns=['Paper', 'Bias'])
+    Authors_Out = pd.DataFrame(Authors) #columns=['Paper', 'Bias'])
     output_name_3 = input("File name (.csv) for calculated values (Paper): ")
     if output_name_3.endswith('.csv') is True:
         pass
@@ -133,21 +133,22 @@ def calibrate():
         print()
         return
     Authors = pd.read_csv(infile)
-    length = len(Authors) + 1
-    for i in range(1,len(Authors.index)):
-        Author_list = list(Authors.iloc[i][1:length])
+    Normlist = []
+    for i in range(0,len(Authors.index)):
+        Author_list = list(Authors.iloc[i][1:-1])
         Author_list = [x for x in Author_list if str(x) != 'nan']
         Auth_num = len(Author_list)
-        for x in Authors['Paper']:
-            PubsNorm_1 = Authors['Bias']/Auth_num
-            PubsNorm_2 = list(PubsNorm_1)
-    Authors['Cal.Bias'] = PubsNorm_2
+        PubsNorm_1 = Authors.iloc[i]['Bias']
+        PubsNorm_2 = PubsNorm_1/Auth_num
+        Normlist.append(PubsNorm_2)
+    Authors['Cal.Bias'] = Normlist
+    Authors_Out = pd.DataFrame(Authors, columns=['Paper', 'Bias', 'Cal.Bias'])
     output_name = input("File name (.csv) for calibrated values: ")
     if output_name.endswith('.csv') is True:
         pass
     elif output_name.endswith('.csv') is False:
         output_name = output_name + '.csv'
-    Authors.to_csv(output_name, index=False)
+    Authors_Out.to_csv(output_name, index=False)
     print()
     print()
 
