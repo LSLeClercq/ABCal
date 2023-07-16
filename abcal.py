@@ -31,11 +31,12 @@ def menu_choice():
     print("   c) Check normality of Author bias distribution")
     print("   d) Get upper/lower quartiles of Author bias")
     print("   e) Create plots")
+    print("   f) Get descriptive/summary statistics")
     print("   q) Quit")
     print("----------------------------------------")
     choice = input("Choice: ")
     print()
-    if choice.lower() in ['a','b','c','d','e','q']:
+    if choice.lower() in ['a','b','c','d','e','f','q']:
         return choice.lower()
     else:
         print(choice +"?")
@@ -538,6 +539,8 @@ def bias_plot():
     Data = pd.DataFrame(Data)
     Bias = Data['Cal.Bias']
     ZBias = stats.zscore(Bias)
+    Data['Z-Score'] = ZBias
+    Data.to_csv(infile, index=False)
     fig, ax = plt.subplots(figsize =(10, 7))
     font = {'family': 'serif',
         'color':  'black',
@@ -554,6 +557,20 @@ def bias_plot():
     ax.set_xlabel("Bias", fontdict=font, fontsize=15, labelpad=10)
     ax.set_ylabel("Z-values", fontdict=font, fontsize=15, labelpad=10)
     plt.savefig("Bias plot.png")
+    
+def descriptive_stats():
+    """Generates descriptive statistics for values"""
+    infile = input("Authors with computed bias file (.csv): ")
+    if infile.endswith('.csv') is True:
+        pass
+    elif infile.endswith('.csv') is False:
+        infile = infile + '.csv'
+    Data = pd.read_csv(infile)
+    Data = pd.DataFrame(Data)
+    Data_2 = Data.describe()
+    print(Data_2)
+    Data_2.to_csv("Descriptive Stats.csv", index=True)
+    print()
 
 def main_loop():
     """The main loop of the script"""
@@ -574,6 +591,8 @@ def main_loop():
             get_quantiles()
         elif choice == 'e':
             plots()
+        elif choice == 'f':
+            descriptive_stats()
         else:
             print("Invalid choice.")
 
