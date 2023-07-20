@@ -5,6 +5,8 @@
 ### Introduction
 ABCal is a menu-driven module used to calculate and quantify potential author bias in studies included in a review or meta-analysis. The menu guides you through the steps of creating a list of authors from a table of authors for each paper (see Examples) to calculating the number of total articles each author contributed to. The overall author contributions are then summed to determine the level of potential bias in the literature through an over-representation of specific authors. With the latest update some functionality has been added for plotting various aspects relevant to the scientometrics appraisal of included literature for reviews or meta-analyses, specifically the ability to visualise publications by year and location as well as the top contributing authors.
 
+**Cite as:**Le Clercq, L.S. ABCal: a Python package for Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses (2023). _Scientometrics_ In Press
+
 **Dependencies:**
 - Python >= 3.6
 - Numpy >= 1.20.1
@@ -179,5 +181,7 @@ e.g.
 
 ![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/e3478a9c-4a0c-417c-b830-8b603e80ae32)
 
+## Publications:
 
+Le Clercq, L.S., Kotzé, A., Grobler, J.P. and Dalton, D.L. Biological clocks as age estimation markers in animals: a systematic review and meta‐analysis (2023). _Biological Reviews_. DOI: [10.1111/brv.12992](https://doi.org/10.1111/brv.12992)
 
