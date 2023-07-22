@@ -43,10 +43,11 @@ Choose one of the following options?
    c) Check normality of Author bias distribution
    d) Get upper/lower quartiles of Author bias
    e) Create plots
+   f) Get descriptive/summary statistics
    q) Quit
 ----------------------------------------
 ```
-input is given as lower case 'a', 'b', 'c', 'd', 'e', or 'q'
+input is given as lower case 'a', 'b', 'c', 'd', 'e', 'f', or 'q'
 e.g.
 ```
 Choice: a
@@ -180,6 +181,28 @@ e.g.
 e.g.
 
 ![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/e3478a9c-4a0c-417c-b830-8b603e80ae32)
+
+#### f) Get descriptive/summary statistics
+
+- Takes output from author bias calibration step and/or z-value plotting as input.
+- Generates descriptive statistics for columns in files.
+
+e.g.,
+
+||Bias|Cal.Bias|Z-Score|
+|---|---|---|---|
+|count|67|67|67|
+|mean|0.023613277|0.004086097|-2.10E-16|
+|std|0.01601255|0.002039446|1.007547277|
+|min|0.002487562|0.002487562|-0.789723972|
+|25%|0.013681592|0.002487562|-0.789723972|
+|50%|0.019900498|0.00331675|-0.380080644|
+|75%|0.031094527|0.004975124|0.439206012|
+|max|0.111940299|0.012437811|4.125995962|
+
+#### q) Quit
+
+- Exits ABCal.
 
 ## Publications:
 
