@@ -151,10 +151,17 @@ Choose one of the following options?
 
 ##### a) Plot by Year:
 
-- Takes a table/csv as input with a column for the study name (Paper) and a column for the publication time (Year).
+- Takes a table/csv ("Studies_Years.csv") as input with a column for the study name (Paper) and a column for the publication time (Year).
+
+e.g.,
+|Paper|Year|
+|---|---|
+|Paper 1|2014|
+|Paper 30|2022|
+  
 - Generates a histogram with the number of publications per year.
 
-e.g.
+e.g.,
 ![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/fb0700c5-c35a-4139-b932-38b90c9fa3b7)
 
 
@@ -162,15 +169,22 @@ e.g.
 
 - Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
 
-e.g.
+e.g.,
 ![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/280969ac-8edf-484f-b068-e4ab06be5b5c)
 
 ##### c) Plot by Location:
 
-- Takes a table/csv as input with a column for the study name (Paper) and a column for the study site (Location).
-- Generates a chloropleth map with the number of publications per country indicated.
+- Takes a table/csv ("Studies_Locations.csv") as input with a column for the study name (Paper) and a column for the study site (Location).
 
-e.g.
+e.g.,
+|Paper|Location|
+|---|---|
+|Paper 1|United States|
+|Paper 30|France|
+  
+- Generates a chloropleth map with the number of publications per country indicated. The lowest is indicated in green and is scaled according to the data with the maximum indicated in red. 
+
+e.g.,
 ![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/f2d4784c-0bde-489d-912b-e921248a7fb5)
 
 ##### d) Plot z-values of Calibrated Bias:
