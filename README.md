@@ -54,7 +54,7 @@ Choice: a
 ```
 
 #### a) Calculate Author bias (STEP 1)
-- Takes table of authors as input e.g. ***Authors.csv***
+- Takes table of authors as input e.g. ***Example_Authors.csv***
 
 e.g.
 
@@ -64,13 +64,15 @@ e.g.
   |Paper 2|Author E|Author B|Author D|NaN|
   |Paper 3|Author B|Author F|Author C|Author D|
   
-- Asks for output file name for number of publications per author e.g. ***Author_Pubs.csv*** (useful for checking duplicates)
-- Asks for output file name e.g. ***Auth_Bias.csv***
+- Asks for output file name for number of publications/count per author e.g. ***Example_Author Counts.csv*** (useful for checking duplicates)
+- Asks for output file name for individual bias e.g. ***Example_Individual Bias.csv***
 - Replaces authors with the proportions of the literature contributed by each author and writes a new column 'Bias' that refects the sum of proportions
+- Asks for output file name for author bias per paper e.g. ***Example_Paper Bias*** 
   
 #### b) Calibrate Author bias (STEP 2)
-- Takes output from STEP 1 as input file and asks for the new output file name e.g. ***Auth_BiasNorm.csv***
-- Writes a new column 'Bias.Norm' that reflects the paper author bias (sum) divided by the number of authors on the paper
+- Takes output from STEP 1 as input file and asks for the new output file name e.g. ***Example_Paper Bias.csv***
+- Writes a new column 'Cal.Bias' that reflects the paper author bias (sum) divided by the number of authors on the paper
+- Asks for output file name for calibrated author bias per paper e.g. ***Example_Paper Bias (Calibrated).csv*** 
 
 #### c) Check normality of Author bias distribution (STEP 3)
 - Takes output from STEP 2 as input file and checks normality in one of 3 ways based on menu choice.
@@ -131,7 +133,7 @@ Low:     0.0008 to 0.0081
 Medium:  0.0081 to 0.0425
 High:    0.0425 to 0.0521
 ```
-- Asks for name of output file e.g. ***Auth_final.csv*** with an added column that indicates the 'Level' of a paricular paper as 'Low' for the lower 3rd, 'Medium' for the middle, and 'High' for the upper 3rd
+- Asks for name of output file e.g. ***Example_final.csv*** with an added column that indicates the 'Level' of a paricular paper as 'Low' for the lower 3rd, 'Medium' for the middle, and 'High' for the upper 3rd
 
 #### e) Create plots
 
@@ -151,7 +153,7 @@ Choose one of the following options?
 
 ##### a) Plot by Year:
 
-- Takes a table/csv ("Studies_Years.csv") as input with a column for the study name (Paper) and a column for the publication time (Year).
+- Takes a table/csv (***"Example_Year.csv"***) as input with a column for the study name (Paper) and a column for the publication time (Year).
 
 e.g.,
 |Paper|Year|
@@ -159,7 +161,7 @@ e.g.,
 |Paper 1|2014|
 |Paper 30|2022|
   
-- Generates a histogram with the number of publications per year.
+- Generates a histogram with the number of publications per year named "Year Plot".
 
 e.g.,
 ![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/fb0700c5-c35a-4139-b932-38b90c9fa3b7)
@@ -167,14 +169,14 @@ e.g.,
 
 ##### b) Plot by Authors:
 
-- Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
+- Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed, named "Year plot".
 
 e.g.,
 ![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/280969ac-8edf-484f-b068-e4ab06be5b5c)
 
 ##### c) Plot by Location:
 
-- Takes a table/csv ("Studies_Locations.csv") as input with a column for the study name (Paper) and a column for the study site (Location).
+- Takes a table/csv (***"Example_Locations.csv"***) as input with a column for the study name (Paper) and a column for the study site (Location).
 
 e.g.,
 |Paper|Location|
@@ -182,7 +184,7 @@ e.g.,
 |Paper 1|United States|
 |Paper 30|France|
   
-- Generates a chloropleth map with the number of publications per country indicated. The lowest is indicated in green and is scaled according to the data with the maximum indicated in red. 
+- Generates a chloropleth map with the number of publications per country indicated, named "Location plot". The lowest is indicated in green and is scaled according to the data with the maximum indicated in red. Countries that are blank are data deficient.
 
 e.g.,
 ![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/f2d4784c-0bde-489d-912b-e921248a7fb5)
@@ -190,7 +192,7 @@ e.g.,
 ##### d) Plot z-values of Calibrated Bias:
 
 - Takes output from calibration step (b) as input.
-- Generates a boxplot of the z-score normalised bias estimates for the included publications.
+- Generates a boxplot of the z-score normalised bias estimates for the included publications, named "Bias plot".
 
 e.g.
 
