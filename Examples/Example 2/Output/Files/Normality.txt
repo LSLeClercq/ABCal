@@ -1,0 +1,5 @@
+Test of Normality:
+--------------------
+Shapiro-Wilk: 0.780
+P-value: 1.2383085667977412e-08 ***
+Result: Not Normal
