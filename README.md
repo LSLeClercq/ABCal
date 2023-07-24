@@ -169,7 +169,7 @@ e.g.,
 
 ##### b) Plot by Authors:
 
-- Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed, named "Year plot".
+- Takes the first table given as output in STEP 1 (***Example_Author Counts.csv***) and returns a plot of the top (N) authors and the number of publications/studies they contributed, named "Year plot".
 
 e.g.,
 ![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/280969ac-8edf-484f-b068-e4ab06be5b5c)
