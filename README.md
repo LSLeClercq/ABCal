@@ -1,9 +1,11 @@
 ![imgbin_scholarship-baresan-university-computer-icons-school-png_2_10](https://user-images.githubusercontent.com/85708751/196565804-57d05bd6-94ee-46ff-a910-879243040207.png) ![image](https://user-images.githubusercontent.com/85708751/196566604-f39ec73a-5074-475f-b763-56bc404a002a.png) <img align="right" src="https://user-images.githubusercontent.com/85708751/176286890-15060001-79ba-4035-a815-e8cf821cec86.png"> 
   
-## Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses
+## Author Bias Computation and Scientometric Plotting
 ![Language](https://img.shields.io/badge/Language-Python-yellow)  ![Version](https://img.shields.io/badge/Version-1.0.2-purple) ![Windows](https://img.shields.io/badge/OS-Windows-green) ![License](https://img.shields.io/badge/License-Apache_2.0-red) 
 ### Introduction
 ABCal is a menu-driven module used to calculate and quantify potential author bias in studies included in a review or meta-analysis. The menu guides you through the steps of creating a list of authors from a table of authors for each paper (see Examples) to calculating the number of total articles each author contributed to. The overall author contributions are then summed to determine the level of potential bias in the literature through an over-representation of specific authors. With the latest update some functionality has been added for plotting various aspects relevant to the scientometrics appraisal of included literature for reviews or meta-analyses, specifically the ability to visualise publications by year and location as well as the top contributing authors.
+
+**Cite as:** Le Clercq, L.S. ABCal: a Python package for Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses (2023). _Journal of Informetrics_. [Submitted]
 
 **Dependencies:**
 - Python >= 3.6
@@ -41,10 +43,11 @@ Choose one of the following options?
    c) Check normality of Author bias distribution
    d) Get upper/lower quartiles of Author bias
    e) Create plots
+   f) Get descriptive/summary statistics
    q) Quit
 ----------------------------------------
 ```
-input is given as lower case 'a', 'b', 'c', 'd', 'e', or 'q'
+input is given as lower case 'a', 'b', 'c', 'd', 'e', 'f', or 'q'
 e.g.
 ```
 Choice: a
@@ -148,10 +151,17 @@ Choose one of the following options?
 
 ##### a) Plot by Year:
 
-- Takes a table/csv as input with a column for the study name (Paper) and a column for the publication time (Year).
+- Takes a table/csv ("Studies_Years.csv") as input with a column for the study name (Paper) and a column for the publication time (Year).
+
+e.g.,
+|Paper|Year|
+|---|---|
+|Paper 1|2014|
+|Paper 30|2022|
+  
 - Generates a histogram with the number of publications per year.
 
-e.g.
+e.g.,
 ![Year Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/fb0700c5-c35a-4139-b932-38b90c9fa3b7)
 
 
@@ -159,15 +169,22 @@ e.g.
 
 - Takes the first table given as output in STEP 1 and returns a plot of the top (N) authors and the number of publications/studies they contributed.
 
-e.g.
+e.g.,
 ![Author Plot](https://github.com/LSLeClercq/ABCal/assets/85708751/280969ac-8edf-484f-b068-e4ab06be5b5c)
 
 ##### c) Plot by Location:
 
-- Takes a table/csv as input with a column for the study name (Paper) and a column for the study site (Location).
-- Generates a chloropleth map with the number of publications per country indicated.
+- Takes a table/csv ("Studies_Locations.csv") as input with a column for the study name (Paper) and a column for the study site (Location).
 
-e.g.
+e.g.,
+|Paper|Location|
+|---|---|
+|Paper 1|United States|
+|Paper 30|France|
+  
+- Generates a chloropleth map with the number of publications per country indicated. The lowest is indicated in green and is scaled according to the data with the maximum indicated in red. 
+
+e.g.,
 ![Location plot](https://github.com/LSLeClercq/ABCal/assets/85708751/f2d4784c-0bde-489d-912b-e921248a7fb5)
 
 ##### d) Plot z-values of Calibrated Bias:
@@ -179,5 +196,29 @@ e.g.
 
 ![Bias plot](https://github.com/LSLeClercq/ABCal/assets/85708751/e3478a9c-4a0c-417c-b830-8b603e80ae32)
 
+#### f) Get descriptive/summary statistics
 
+- Takes output from author bias calibration step and/or z-value plotting as input.
+- Generates descriptive statistics for columns in files.
+
+e.g.,
+
+||Bias|Cal.Bias|Z-Score|
+|---|---|---|---|
+|count|67|67|67|
+|mean|0.023613277|0.004086097|-2.10E-16|
+|std|0.01601255|0.002039446|1.007547277|
+|min|0.002487562|0.002487562|-0.789723972|
+|25%|0.013681592|0.002487562|-0.789723972|
+|50%|0.019900498|0.00331675|-0.380080644|
+|75%|0.031094527|0.004975124|0.439206012|
+|max|0.111940299|0.012437811|4.125995962|
+
+#### q) Quit
+
+- Exits ABCal.
+
+## Publications:
+
+Le Clercq, L.S., Kotzé, A., Grobler, J.P. and Dalton, D.L. Biological clocks as age estimation markers in animals: a systematic review and meta‐analysis (2023). _Biological Reviews_. DOI: [10.1111/brv.12992](https://doi.org/10.1111/brv.12992)
 
