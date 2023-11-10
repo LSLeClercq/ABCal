@@ -9,6 +9,8 @@ ABCal is a menu-driven module used to calculate and quantify potential author bi
 
 **Cite as:** Le Clercq, L.S. ABCal: a Python package for Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses (2023). _Scientometrics_. In Press.
 
+**Preprint:** Le Clercq, L.S. ABCal: a Python package for Author Bias Computation and Scientometric Plotting for Reviews and Meta-Analyses (2023). _BioRviv_. DOI: [10.1101/2023.11.07.565991](https://doi.org/10.1101/2023.11.07.565991)
+
 **Dependencies:**
 - Python >= 3.6
 - Numpy >= 1.20.1
